@@ -7,6 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+    <div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li> {{ $error}} </li>                    
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+    </div>
     <h1>Create a Product</h1>
     <form method="post" action="{{route('product.store')}}">
         @csrf
