@@ -7,6 +7,17 @@
     <title>Document</title>
 </head>
 <body>
+    <div>
+        @if (session()-> has('sucess'))
+            <div>
+                {{session('sucess')}}
+            </div>
+            
+        @endif
+    </div>
+    <div>
+        <a href="{{route('product.create')}}">Create a new product</a>
+    </div>
     <h1>Product</h1>
     <table border="1">
         <tr>
@@ -16,6 +27,7 @@
             <th>Price</th>
             <th>Description</th>
             <th>Edit</th>
+            <th>Delete</th>
         </tr>
         @foreach ($products as $product)
             <tr>
@@ -24,7 +36,14 @@
                 <th>{{$product->qty}}</th>
                 <th>{{$product->price}}</th>
                 <th>{{$product->description}}</th>   
-                <th><a href="{{route('product.edit', ['product' => $product])}}">Edit</a></th>  
+                <th><a href="{{route('product.edit', ['product' => $product])}}">Edit</a></th>
+                <th>
+                    <form method="post" action="{{route('product.delete', ['product' => $product])}}">
+                        @csrf
+                        @method('delete')
+                        <input type="submit" value="Delete">
+                    </form>
+                </th>  
             </tr>
         @endforeach
     </table>
